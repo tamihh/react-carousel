@@ -7,7 +7,7 @@ const baseStyles = () => injectGlobal`
   body, html {
     padding: 0;
     margin: 0;
-	  font-family: 'Lato', 'Arial', sans-serif;
+	  font-family: 'Ropa Sans', sans-serif;
     overflow-x: hidden;
     font-size: 10px;
 	}

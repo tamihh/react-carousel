@@ -1,44 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Button from 'Components/Button';
-
-const Container = styled.div`
-  width: 100%;
-  overflow-x: auto;
-  position: relative;
-`;
-
-const Content = styled.div`
-  display: flex;
-  width: ${(props) => props.widthContainer}px;
-  transition: ${(props) => props.sliding ? 'none' : 'transform .5s ease'};
-  transform: ${({ position }) => {
-    if (position > 0) {
-      let newPosition = position;
-      return `translateX(calc(0% - ${newPosition}%))`
-    }
-    return `translateX(0)`
-  }};
-`;
-
-const Item = styled.div`
-  flex: 1 0 ${({ itemWidth }) => itemWidth}%;
-`;
-
-const NextButton = Button.extend`
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-`;
-
-const PrevButton = Button.extend`
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-`;
+import { Container, Title, Content, Items, Item, NextButton, PrevButton } from './styles';
 
 class Carousel extends Component {
 
@@ -71,31 +33,22 @@ class Carousel extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("resize", () => {
-      let device = "smartphone";
-
-      if(window.innerWidth >= 500) 
-        device = "tablet";
-      if(window.innerWidth >= 1024) 
-        device = "desktop";
-
-      this.setState({ 
-        windowWidth: window.innerWidth,
-        itemWidth: Math.floor(100/this.props.itemsPerSlide[device]),
-      })
-    });
+    this.calcItemWidth();
+    window.addEventListener("resize", () => this.calcItemWidth());
   }
-
 
   calcItemWidth() {
     let device = "smartphone";
 
-    if(this.state.windowWidth >= 500) 
+    if(window.innerWidth >= 500) 
       device = "tablet";
-    if(this.state.windowWidth >= 1024) 
+    if(window.innerWidth >= 1024) 
       device = "desktop";
 
-    this.setState({ itemWidth: Math.floor(100/this.props.itemsPerSlide[device]) });
+    this.setState({ 
+      windowWidth: window.innerWidth,
+      itemWidth: Math.floor(100/this.props.itemsPerSlide[device]),
+    })
   }
 
   render() {
@@ -106,11 +59,14 @@ class Carousel extends Component {
 
     return (
       <Container>
-        <Content widthContainer={widthContainer} position={this.state.position}>
-          { this.props.children && this.props.children.map((child, index) => <Item itemWidth={this.state.itemWidth} key={ index }>{child}</Item>) }
+        <Title>{this.props.title}</Title>
+        <Content>
+          <Items widthContainer={widthContainer} position={this.state.position}>
+            { this.props.children && this.props.children.map((child, index) => <Item itemWidth={this.state.itemWidth} key={index}>{child}</Item>) }
+          </Items>
+          {<PrevButton onClick={ () => this.prevSlide()} disabled={firstPage}>Prev</PrevButton>}
+          {<NextButton onClick={ () => this.nextSlide()} disabled={lastPage}>Next</NextButton>}
         </Content>
-        {!firstPage && <PrevButton onClick={ () => this.prevSlide()} disabled={this.state.sliding}>Prev</PrevButton>}
-        {!lastPage && <NextButton onClick={ () => this.nextSlide()} disabled={this.state.sliding}>Next</NextButton>}
       </Container>
     );
   }
