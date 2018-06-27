@@ -3,7 +3,7 @@ import Button from 'Components/Button';
 
 export const Container = styled.div`
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
   position: relative;
   padding: 50px 0;
 `;
@@ -19,7 +19,7 @@ export const Content = styled.div`
 
 export const Items = styled.div`
   display: flex;
-  width: ${(props) => props.widthContainer}px;
+  width: 100%;
   transition: ${(props) => props.sliding ? 'none' : 'transform .5s ease'};
   transform: ${({ position }) => {
     if (position > 0) {
