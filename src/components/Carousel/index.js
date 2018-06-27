@@ -45,14 +45,10 @@ class Carousel extends Component {
     if(window.innerWidth >= 1024) 
       device = "desktop";
 
-    this.setState({ 
-      windowWidth: window.innerWidth,
-      itemWidth: Math.floor(100/this.props.itemsPerSlide[device]),
-    })
+    this.setState({itemWidth: Math.floor(100/this.props.itemsPerSlide[device])})
   }
 
   render() {
-    const widthContainer = '100%';
     const itemsWidth = this.props.children.length*this.state.itemWidth;
     const lastPage = this.state.position === itemsWidth - 100;
     const firstPage = this.state.position === 0;
@@ -61,7 +57,7 @@ class Carousel extends Component {
       <Container>
         <Title>{this.props.title}</Title>
         <Content>
-          <Items widthContainer={widthContainer} position={this.state.position}>
+          <Items position={this.state.position}>
             { this.props.children && this.props.children.map((child, index) => <Item itemWidth={this.state.itemWidth} key={index}>{child}</Item>) }
           </Items>
           {<PrevButton onClick={ () => this.prevSlide()} disabled={firstPage}>Prev</PrevButton>}
