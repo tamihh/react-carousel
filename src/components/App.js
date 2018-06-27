@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { hot } from 'react-hot-loader'
-import Home from 'Containers/Home';
+import Home from '../containers/Home';
 
 const App = () => {
   return (

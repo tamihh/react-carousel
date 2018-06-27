@@ -16,8 +16,6 @@ module.exports = {
   },
   entry: [
     'babel-polyfill',
-    'react-hot-loader/patch',
-    'webpack/hot/only-dev-server',
     path.resolve(__dirname, './src/index.js')
   ],
   output: {
@@ -33,7 +31,7 @@ module.exports = {
         use: 'babel-loader',
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         use: [{
           loader: 'url-loader',
           options: {
@@ -48,6 +46,7 @@ module.exports = {
       Common: path.resolve('src/common'),
       Components: path.resolve('src/components'),
       Containers: path.resolve('src/containers'),
+      Images: path.resolve('src/common/assets/images'),
       Redux: path.resolve('src/redux'),
       Services: path.resolve('src/services'),
     },
