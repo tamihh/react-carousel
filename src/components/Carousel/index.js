@@ -12,7 +12,7 @@ const Container = styled.div`
 const Content = styled.div`
   display: flex;
   width: ${(props) => props.widthContainer}px;
-  transition: ${(props) => props.sliding ? 'none' : 'transform 1s ease'};
+  transition: ${(props) => props.sliding ? 'none' : 'transform .5s ease'};
   transform: ${({ position }) => {
     if (position > 0) {
       let newPosition = position;
@@ -107,7 +107,7 @@ class Carousel extends Component {
     return (
       <Container>
         <Content widthContainer={widthContainer} position={this.state.position}>
-          { this.props.children.map((child, index) => <Item itemWidth={this.state.itemWidth} key={ index }>{child}</Item>) }
+          { this.props.children && this.props.children.map((child, index) => <Item itemWidth={this.state.itemWidth} key={ index }>{child}</Item>) }
         </Content>
         {!firstPage && <PrevButton onClick={ () => this.prevSlide()} disabled={this.state.sliding}>Prev</PrevButton>}
         {!lastPage && <NextButton onClick={ () => this.nextSlide()} disabled={this.state.sliding}>Next</NextButton>}
