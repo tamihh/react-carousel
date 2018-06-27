@@ -5,6 +5,11 @@
 
  Built with: React 16, Webpack 4, Styled Components
 
+## Improvements to be done
+- Pagination
+- Accessibility
+- Tests
+
 ## Dependencies
     > node v8.11
 
