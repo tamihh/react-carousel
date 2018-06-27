@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { loadApp } from 'Redux/actions/app';
 import { loadMovies } from 'Redux/actions/movies';
 import Carousel from 'Components/Carousel';
-import Item from 'Components/Item';
+import Poster from 'Components/Poster';
 import Wrapper from 'Components/Wrapper';
 
 const carouselSettings = {
@@ -27,8 +27,8 @@ class Home extends Component {
 
     return (
       <Wrapper>
-        <Carousel {...carouselSettings}>
-          {upcommingMovies.length && upcommingMovies.map((item, key) => <Item key={`item${key}`}>item{item.title}</Item>)}
+        <Carousel title="Upcomming Movies" {...carouselSettings}>
+          {upcommingMovies.length && upcommingMovies.map((item, key) => <Poster key={`item${key}`} content={item} />)}
         </Carousel>
       </Wrapper>
     );
